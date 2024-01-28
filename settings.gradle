@@ -1,0 +1,23 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven {
+            url 'https://repo.papermc.io/repository/maven-public/'
+        }
+    }
+}
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.5.0'
+}
+
+rootProject.name = 'candy-command'
+
+include 'candy-command-api'
+include 'candy-command-impl'
+include 'candy-command-impl-1-17-1'
+include 'candy-command-impl-1-18-2'
+include 'candy-command-impl-1-19-4'
+include 'candy-command-impl-1-20-4'
+include 'candy-command-test'
+include 'candy-command-dsl'
+

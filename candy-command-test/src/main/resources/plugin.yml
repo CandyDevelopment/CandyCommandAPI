@@ -1,0 +1,5 @@
+main: fit.d6.candy.test.CandyCommandAPITest
+name: CandyCommandAPITest
+version: 1.0.0
+author: DeeChael
+depend: [ CandyCommandAPI ]

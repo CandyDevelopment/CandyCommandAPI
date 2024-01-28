@@ -1,0 +1,4 @@
+main: fit.d6.candy.CandyCommandAPI
+name: CandyCommandAPI
+version: 1.0.0
+author: DeeChael
