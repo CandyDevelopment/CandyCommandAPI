@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group = 'net.deechael'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://repo.songoda.com/repository/public/'
+    }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot:1.15' // 1.15 has only one nms version, im not not sure if 1.15 and 1.15.2 classes names didn't change though they share one same nms version
+    compileOnly project(':candy-command-api')
+    compileOnly "net.kyori:adventure-api:4.15.0"
+    compileOnly "net.kyori:adventure-platform-bukkit:4.3.2"
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}

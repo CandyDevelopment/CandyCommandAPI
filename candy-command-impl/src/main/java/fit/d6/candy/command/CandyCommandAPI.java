@@ -4,6 +4,14 @@ import fit.d6.candy.api.command.AnnotationCommandManager;
 import fit.d6.candy.api.command.ArgumentManager;
 import fit.d6.candy.api.command.CommandManager;
 import fit.d6.candy.api.command.CommandService;
+import fit.d6.candy.command.nms.v1_13_2.ArgumentManagerV1_13_2;
+import fit.d6.candy.command.nms.v1_13_2.CommandManagerV1_13_2;
+import fit.d6.candy.command.nms.v1_14_4.ArgumentManagerV1_14_4;
+import fit.d6.candy.command.nms.v1_14_4.CommandManagerV1_14_4;
+import fit.d6.candy.command.nms.v1_15_2.ArgumentManagerV1_15_2;
+import fit.d6.candy.command.nms.v1_15_2.CommandManagerV1_15_2;
+import fit.d6.candy.command.nms.v1_16_5.ArgumentManagerV1_16_5;
+import fit.d6.candy.command.nms.v1_16_5.CommandManagerV1_16_5;
 import fit.d6.candy.command.nms.v1_17_1.ArgumentManagerV1_17_1;
 import fit.d6.candy.command.nms.v1_17_1.CommandManagerV1_17_1;
 import fit.d6.candy.command.nms.v1_18_2.ArgumentManagerV1_18_2;
@@ -36,13 +44,25 @@ public final class CandyCommandAPI extends JavaPlugin implements CommandService 
         } else if (Ref.getObcVersion().equalsIgnoreCase("1_17_R1")) {
             commandManager = new CommandManagerV1_17_1();
             argumentManager = new ArgumentManagerV1_17_1();
+        } else if (Ref.getObcVersion().equalsIgnoreCase("1_16_R3")) {
+            commandManager = new CommandManagerV1_16_5();
+            argumentManager = new ArgumentManagerV1_16_5();
+        } else if (Ref.getObcVersion().equalsIgnoreCase("1_15_R1")) {
+            commandManager = new CommandManagerV1_15_2();
+            argumentManager = new ArgumentManagerV1_15_2();
+        } else if (Ref.getObcVersion().equalsIgnoreCase("1_14_R1")) {
+            commandManager = new CommandManagerV1_14_4();
+            argumentManager = new ArgumentManagerV1_14_4();
+        } else if (Ref.getObcVersion().equalsIgnoreCase("1_13_R2")) {
+            commandManager = new CommandManagerV1_13_2();
+            argumentManager = new ArgumentManagerV1_13_2();
         }
     }
 
     @Override
     public void onEnable() {
-        if (Ref.isOldNms()) {
-            getSLF4JLogger().error("Server version is too old! Not supported!");
+        if (Ref.isOldNms() && Bukkit.getPluginManager().isPluginEnabled("CandyCommandOldNmsAdapter")) {
+            getSLF4JLogger().error("Old nms requires CandyCommandOldNmsAdapter to run!");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }

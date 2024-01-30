@@ -7,8 +7,9 @@ English | <a href="./README_CN.md">简体中文</a>
 </div>
 
 ---
-<h1 align="center"><b>ATTENTION: ONLY WORKS FOR PAPER AND ITS FORKS</b></h1>
-<h2 align="center">ONLY FOR 1.17.1, 1.18.2, 1.19.4, 1.20.4, IF YOU NEED OTHER VERSION SUPPORT AFTER 1.17+ PLEASE CREATE ISSUE. (VERSION BELOW 1.17 WON'T BE ADMITTED BECAUSE THE REQUIRED API ONLY EXISTS IN 1.17+)</h2>
+<h2 align="center"><b>ATTENTION: ONLY WORKS FOR PAPER AND ITS FORKS (1.13 - 1.16.5 WORKS FOR SPIGOT)</b></h2>
+<h3 align="center">ONLY LATEST VERSION ARE SUPPORTED BETWEEN 1.13 AND 1.16.5, AND TO USE CANDY COMMAND API IN 1.13.2, 1.14.4, 1.15.2, 1.16.5 YOU MUST INSTALL THE PLUGIN CandyCommandOldNmsAdapter WHICH IS IN MODULE <b>`candy-command-oldnms-adapter`</b></h3>
+<h3 align="center">IF YOU NEED OTHER VERSION SUPPORT AFTER 1.17+ PLEASE CREATE ISSUE.</h2>
 
 ---
 
@@ -16,7 +17,7 @@ English | <a href="./README_CN.md">简体中文</a>
 
 <h4>For maintainer</h4>
 If you want to fork this project to maintain it or do other things, after you import the project, 
-you may find that the classes imported in class CandyCommandAPI under `candy-command-impl` module is missed.
+you may find that some classes imported in class CandyCommandAPI under `candy-command-impl` module is missed.
 Don't worry, it is not a problem, because we imported implementations for different version like `candy-command-impl-1-20-4`,
 and we need the re-obfuscated jar, so the original sources won't be imported. 
 You should run `gradle shadowJar` task before modify anything in `candy-command-impl` module.

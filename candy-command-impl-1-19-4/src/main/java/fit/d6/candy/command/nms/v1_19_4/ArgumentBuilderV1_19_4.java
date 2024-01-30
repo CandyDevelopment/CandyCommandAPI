@@ -6,6 +6,7 @@ import fit.d6.candy.api.command.*;
 import fit.d6.candy.command.nms.v1_19_4.argument.ArgumentTypeV1_19_4;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.synchronization.SuggestionProviders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,9 @@ public class ArgumentBuilderV1_19_4 extends CommandBuilderV1_19_4<RequiredArgume
 
         this.name = name;
         this.argumentType = argumentType;
+
+        if (this.argumentType.getType() == ArgumentTypes.SUMMONABLE_ENTITY_TYPE)
+            this.brigadier.suggests(SuggestionProviders.SUMMONABLE_ENTITIES);
     }
 
     @Override

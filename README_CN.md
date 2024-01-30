@@ -7,8 +7,9 @@
 </div>
 
 ---
-<h1 align="center"><b>注意: 只支持 Paper 及基于 Paper 的服务端</b></h1>
-<h2 align="center">仅支持 1.17.1, 1.18.2, 1.19.4, 1.20.4, 如果你需要 1.17+ 其他版本的支持, 请创建 Issue. (低于 1.17 的版本不会被采纳, 因为此库需要的一些 API 仅存在于 1.17+)</h2>
+<h2 align="center"><b>注意: 只支持 Paper 及基于 Paper 的服务端 (1.13 - 1.16.5 支持 Spigot)</b></h2>
+<h3 align="center">在 1.13 之间 1.16.5 的版本仅支持最后的大版本, 并且如果想在 1.13.2, 1.14.4, 1.15.2, 1.16.5 使用 CandyCommandAPI, 你必须安装源码位于 <b>`candy-command-oldnms-adapter`</b> 模块下的 CandyCommandOldNmsAdapter 插件</h3>
+<h3 align="center">如果你需要 1.17+ 其他版本的支持, 请创建 Issue.</h2>
 
 ---
 

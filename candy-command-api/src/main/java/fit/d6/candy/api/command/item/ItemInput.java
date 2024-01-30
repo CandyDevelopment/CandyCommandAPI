@@ -6,6 +6,8 @@ import org.bukkit.inventory.ItemStack;
 
 public interface ItemInput {
 
+    boolean test(ItemStack itemStack);
+
     Material getType();
 
     ItemStack createItemStack(int amount, boolean checkOverstack) throws CommandSyntaxException;

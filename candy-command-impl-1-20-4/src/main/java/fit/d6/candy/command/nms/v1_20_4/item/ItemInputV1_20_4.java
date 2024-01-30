@@ -16,6 +16,11 @@ public class ItemInputV1_20_4 implements ItemInput {
     }
 
     @Override
+    public boolean test(ItemStack itemStack) {
+        return this.nmsInput.test(CraftItemStack.asNMSCopy(itemStack));
+    }
+
+    @Override
     public Material getType() {
         return CraftMagicNumbers.getMaterial(this.nmsInput.getItem());
     }

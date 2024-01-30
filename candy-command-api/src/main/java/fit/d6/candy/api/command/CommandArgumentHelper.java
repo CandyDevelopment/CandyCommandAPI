@@ -30,7 +30,7 @@ public interface CommandArgumentHelper {
 
     double getDouble(String name);
 
-    long getLong(String name);
+    long getLong(String name) throws CommandSyntaxException;
 
     float getFloat(String name);
 
@@ -46,7 +46,7 @@ public interface CommandArgumentHelper {
 
     Set<Player> getOptionalPlayers(String name) throws CommandSyntaxException;
 
-    float getAngle(String name);
+    float getAngle(String name) throws CommandSyntaxException;
 
     Component getComponent(String name);
 
@@ -56,9 +56,9 @@ public interface CommandArgumentHelper {
 
     GameMode getGameMode(String name) throws CommandSyntaxException;
 
-    UUID getUuid(String name);
+    UUID getUuid(String name) throws CommandSyntaxException;
 
-    Vector getVector(String name);
+    Vector getVector(String name) throws CommandSyntaxException;
 
     Particle getParticle(String name);
 

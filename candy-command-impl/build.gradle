@@ -21,6 +21,10 @@ dependencies {
     compileOnly 'com.mojang:brigadier:1.0.18'
 
     implementation project(':candy-command-api')
+    implementation project(':candy-command-impl-1-13-2')
+    implementation project(':candy-command-impl-1-14-4')
+    implementation project(':candy-command-impl-1-15-2')
+    implementation project(':candy-command-impl-1-16-5')
     implementation project(path: ':candy-command-impl-1-17-1', configuration: 'reobf')
     implementation project(path: ':candy-command-impl-1-18-2', configuration: 'reobf')
     implementation project(path: ':candy-command-impl-1-19-4', configuration: 'reobf')

@@ -1,0 +1,5 @@
+name: CandyCommandOldNmsAdapter
+main: fit.d6.candy.command.nms.old.CandyCommandOldNmsAdapter
+version: 1.0.0
+api-version: 1.13
+author: DeeChael
