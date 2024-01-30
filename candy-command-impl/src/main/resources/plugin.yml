@@ -2,4 +2,4 @@ main: fit.d6.candy.command.CandyCommandAPI
 name: CandyCommandAPI
 version: 1.0.0
 author: DeeChael
-softdepend: [CandyCommandOldNmsAdapter]
+softdepend: [ CandyCommandOldNmsAdapter ]

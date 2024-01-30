@@ -34,7 +34,7 @@ public class CommandContextV1_13_2 implements CommandContext {
 
     @Override
     public String getAlias() {
-        CommandNode<CommandListenerWrapper> root =  MinecraftServer.getServer().vanillaCommandDispatcher.a().getRoot();
+        CommandNode<CommandListenerWrapper> root = MinecraftServer.getServer().vanillaCommandDispatcher.a().getRoot();
         for (CommandNode<CommandListenerWrapper> commandNode : this.brigadier.getNodes().keySet()) {
             if (root.getChildren().contains(commandNode))
                 return commandNode.getName();

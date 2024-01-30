@@ -8,26 +8,31 @@ English | <a href="./README_CN.md">简体中文</a>
 
 ---
 <h2 align="center"><b>ATTENTION: ONLY WORKS FOR PAPER AND ITS FORKS (1.13 - 1.16.5 WORKS FOR SPIGOT)</b></h2>
-<h3 align="center">ONLY LATEST VERSION ARE SUPPORTED BETWEEN 1.13 AND 1.16.5, AND TO USE CANDY COMMAND API IN 1.13.2, 1.14.4, 1.15.2, 1.16.5 YOU MUST INSTALL THE PLUGIN CandyCommandOldNmsAdapter WHICH IS IN MODULE <b>`candy-command-oldnms-adapter`</b></h3>
+<h3 align="center">ONLY LATEST VERSION ARE SUPPORTED BETWEEN 1.13 AND 1.16.5, AND TO USE CANDY COMMAND API IN 1.13.2,
+1.14.4, 1.15.2, 1.16.5 YOU MUST INSTALL THE PLUGIN CandyCommandOldNmsAdapter WHICH IS IN
+MODULE <b>`candy-command-oldnms-adapter`</b></h3>
 <h3 align="center">IF YOU NEED OTHER VERSION SUPPORT AFTER 1.17+ PLEASE CREATE ISSUE.</h2>
 
-<h3 align="center">Oops, I forget that version too low not support java 17, so support for 1.13 - 1.16 need a better solution</h3>
+<h3 align="center">Oops, I forget that version too low not support Java 17, so support for 1.13 - 1.16 need a better
+solution</h3>
 
 ---
 
 <h3 align="center">Usage</h3>
 
 <h4>For maintainer</h4>
-If you want to fork this project to maintain it or do other things, after you import the project, 
+If you want to fork this project to maintain it or do other things, after you import the project,
 you may find that some classes imported in class CandyCommandAPI under `candy-command-impl` module is missed.
-Don't worry, it is not a problem, because we imported implementations for different version like `candy-command-impl-1-20-4`,
-and we need the re-obfuscated jar, so the original sources won't be imported. 
+Don't worry, it is not a problem, because we imported implementations for different version
+like `candy-command-impl-1-20-4`,
+and we need the re-obfuscated jar, so the original sources won't be imported.
 You should run `gradle shadowJar` task before modify anything in `candy-command-impl` module.
 
 <h4>For developer</h4>
 
 **Preparation** \
 Before you starting create a command, you should get the CommandService first.
+
 ```java
 CommandService service = CommandService.getService(); // To get the service, you should make sure that the server has installed the plugin CandyCommandAPI
 CommandManager commandManager = service.getCommandManager(); // Related to commands
@@ -36,48 +41,69 @@ ArgumentManager argumentManager = service.getArgumentManager(); // Related to ar
 // If you want to create command with annotation, this is what you need
 AnnotationCommandManager annotationCommandManager = service.getAnnotationCommandManager();
 ```
+
 For development usage, we actually have 3 ways (2 for all jvm language, 1 for kotlin).
 
 **1. Brigadier-Like** \
 Now you can create a new command with something like below.
+
 ```java
 CommandBuilder baseCommand = commandManager.createCommand("test");
 ```
+
 To add an executor with code below.
+
 ```java
 // Execute this with "/test"
-baseCommand.executes((context, argument) -> { // the first parameter is a CommandContext object, the second parameter is a CommandArgumentHelper
-            CommandSender sender = context.getSender(); // You can get sender with this
+baseCommand.executes((context, argument) ->{ // the first parameter is a CommandContext object, the second parameter is a CommandArgumentHelper
+CommandSender sender = context.getSender(); // You can get sender with this
             return 1; // This is required, any value lower or equal 0 means that the command execution is failed, or else successful
-        });
+                    });
 ```
+
 If you want to add a sub command to invoke the command like "/test subcmd", do below.
+
 ```java
 CommandBuilder subCommand = commandManager.createCommand("subcmd");
-subCommand.executes((context, argument) -> {
-            // do sth
-            return 1;
+subCommand.
+
+executes((context, argument) ->{
+        // do sth
+        return 1;
         });
-baseCommand.then(subCommand);
+        baseCommand.
+
+then(subCommand);
 ```
+
 What if create a command that can accept arguments?
+
 ```java
 CommandBuilder argumentCommand = commandManager.createCommand("argumentName", argumentManager.integer(1, 10)); // This means accept an integer in [1, 10]
-argumentCommand.executes((context, argument) -> {
-            int argumentValue = argument.getInteger("argumentName");
-            // do sth
+argumentCommand.
+
+executes((context, argument) ->{
+int argumentValue = argument.getInteger("argumentName");
+// do sth
             return 1;
-        });
-baseCommand.then(argumentCommand);
+                    });
+                    baseCommand.
+
+then(argumentCommand);
 ```
+
 Now, we can register this command.
+
 ```java
 commandManager.register(baseCommand); // If you don't specific the command prefix, it will be "candycmd"
 // or
-commandManager.register("cmdprefix", baseCommand);
+commandManager.
+
+register("cmdprefix",baseCommand);
 ```
 
-**2. Annotation** 
+**2. Annotation**
+
 ```java
 // TestCommand.java
 
@@ -146,11 +172,15 @@ public class SubTestCommand {
 }
 
 ```
+
 There is a little different with Brigadier-like command, you should register command with AnnotationCommandManager.
+
 ```java
 annotationCommandManager.register(new TestCommand());
 ```
+
 **3. Kotlin DSL**
+
 ```kotlin
 val command = Command("example") {
     Literal("subcommand") {
@@ -161,7 +191,10 @@ val command = Command("example") {
     }
     Literal("argument") {
         Literal("string") {
-            Argument<String>("name", stringArg()) { nameArg -> // This is an extension function only can be used in Executor function and Suggester function
+            Argument<String>(
+                "name",
+                stringArg()
+            ) { nameArg -> // This is an extension function only can be used in Executor function and Suggester function
                 Suggester { context, argument, suggestion ->
                     suggestion.suggests(
                         "DeeChael", // suggestion content
@@ -195,12 +228,16 @@ val command = Command("example") {
 
 commandManager.register("cmdprefix", command)
 ```
+
 ---
 
 <h3 align="center">Technique Details</h3>
-Usually, registering commands with brigadier will only have a prefix "minecraft", because if you directly register your command into the CommandDispatcher, bukkit will automatically add a "minecraft" prefix to it because brigadier commands registration is before bukkit commands registration.
+Usually, registering commands with brigadier will only have a prefix "minecraft", because if you directly register your
+command into the CommandDispatcher, bukkit will automatically add a "minecraft" prefix to it because brigadier commands
+registration is before bukkit commands registration.
 
 To solve this, I create a VanillaCommandWrapper object and register it with Bukkit CommandMap first.
+
 ```java
 // Code from CommandManagerV1_20_4 in module 'candy-command-impl-1-20-4'
 @Override
@@ -220,6 +257,7 @@ public Command register(String prefix, CommandBuilder builder) {
 ```
 
 Then after the server is loaded, replace it with an updated VanillaCommandWrapper which has a real CommandDispatcher.
+
 ```java
 // Code from CommandManagerV1_20_4 in module 'candy-command-impl-1-20-4'
 @EventHandler
@@ -231,11 +269,11 @@ public void onLoad(ServerLoadEvent event) { // You can also do this will schedul
 
     // Get the stored known commands (They didn't copy it when executing getKnownCommands method)
     Map<String, org.bukkit.command.Command> knownCommands = commandMap.getKnownCommands();
-    
+
     for (String prefix : REGISTERED.keySet()) {
         for (Command command : REGISTERED.get(prefix)) {
             // Example with a command named "test" and prefix "prefix"
-            
+
             // Get the built brigadier command node
             CommandNode<CommandSourceStack> commandNode = ((CommandV1_20_4) command).toBrigadier();
 

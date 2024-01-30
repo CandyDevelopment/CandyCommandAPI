@@ -1,7 +1,6 @@
 package fit.d6.candy.test.dsl
 
 import fit.d6.candy.command.dsl.*
-import fit.d6.candy.dsl.*
 import net.kyori.adventure.text.Component
 import org.bukkit.entity.Player
 

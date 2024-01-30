@@ -14,10 +14,20 @@ import fit.d6.candy.command.nms.v1_16_5.ArgumentManagerV1_16_5;
 import fit.d6.candy.command.nms.v1_16_5.CommandManagerV1_16_5;
 import fit.d6.candy.command.nms.v1_17_1.ArgumentManagerV1_17_1;
 import fit.d6.candy.command.nms.v1_17_1.CommandManagerV1_17_1;
+import fit.d6.candy.command.nms.v1_18.ArgumentManagerV1_18;
+import fit.d6.candy.command.nms.v1_18.CommandManagerV1_18;
 import fit.d6.candy.command.nms.v1_18_2.ArgumentManagerV1_18_2;
 import fit.d6.candy.command.nms.v1_18_2.CommandManagerV1_18_2;
+import fit.d6.candy.command.nms.v1_19_1.ArgumentManagerV1_19_1;
+import fit.d6.candy.command.nms.v1_19_1.CommandManagerV1_19_1;
+import fit.d6.candy.command.nms.v1_19_3.ArgumentManagerV1_19_3;
+import fit.d6.candy.command.nms.v1_19_3.CommandManagerV1_19_3;
 import fit.d6.candy.command.nms.v1_19_4.ArgumentManagerV1_19_4;
 import fit.d6.candy.command.nms.v1_19_4.CommandManagerV1_19_4;
+import fit.d6.candy.command.nms.v1_20.ArgumentManagerV1_20;
+import fit.d6.candy.command.nms.v1_20.CommandManagerV1_20;
+import fit.d6.candy.command.nms.v1_20_2.ArgumentManagerV1_20_2;
+import fit.d6.candy.command.nms.v1_20_2.CommandManagerV1_20_2;
 import fit.d6.candy.command.nms.v1_20_4.ArgumentManagerV1_20_4;
 import fit.d6.candy.command.nms.v1_20_4.CommandManagerV1_20_4;
 import fit.d6.candy.command.util.Ref;
@@ -26,7 +36,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class CandyCommandAPI extends JavaPlugin implements CommandService {
 
-    private AnnotationCommandManager annotationCommandManager = new AnnotationCommandManagerImpl();
+    private final AnnotationCommandManager annotationCommandManager = new AnnotationCommandManagerImpl();
     private CommandManager commandManager;
     private ArgumentManager argumentManager;
 
@@ -35,12 +45,27 @@ public final class CandyCommandAPI extends JavaPlugin implements CommandService 
         if (Ref.getObcVersion().equalsIgnoreCase("1_20_R3")) {
             commandManager = new CommandManagerV1_20_4();
             argumentManager = new ArgumentManagerV1_20_4();
+        } else if (Ref.getObcVersion().equalsIgnoreCase("1_20_R2")) {
+            commandManager = new CommandManagerV1_20_2();
+            argumentManager = new ArgumentManagerV1_20_2();
+        } else if (Ref.getObcVersion().equalsIgnoreCase("1_20_R1")) {
+            commandManager = new CommandManagerV1_20();
+            argumentManager = new ArgumentManagerV1_20();
         } else if (Ref.getObcVersion().equalsIgnoreCase("1_19_R3")) {
             commandManager = new CommandManagerV1_19_4();
             argumentManager = new ArgumentManagerV1_19_4();
+        } else if (Ref.getObcVersion().equalsIgnoreCase("1_19_R2")) {
+            commandManager = new CommandManagerV1_19_3();
+            argumentManager = new ArgumentManagerV1_19_3();
+        } else if (Ref.getObcVersion().equalsIgnoreCase("1_19_R1")) {
+            commandManager = new CommandManagerV1_19_1();
+            argumentManager = new ArgumentManagerV1_19_1();
         } else if (Ref.getObcVersion().equalsIgnoreCase("1_18_R2")) {
             commandManager = new CommandManagerV1_18_2();
             argumentManager = new ArgumentManagerV1_18_2();
+        } else if (Ref.getObcVersion().equalsIgnoreCase("1_18_R1")) {
+            commandManager = new CommandManagerV1_18();
+            argumentManager = new ArgumentManagerV1_18();
         } else if (Ref.getObcVersion().equalsIgnoreCase("1_17_R1")) {
             commandManager = new CommandManagerV1_17_1();
             argumentManager = new ArgumentManagerV1_17_1();

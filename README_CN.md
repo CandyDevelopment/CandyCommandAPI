@@ -8,10 +8,11 @@
 
 ---
 <h2 align="center"><b>注意: 只支持 Paper 及基于 Paper 的服务端 (1.13 - 1.16.5 支持 Spigot)</b></h2>
-<h3 align="center">在 1.13 之间 1.16.5 的版本仅支持最后的大版本, 并且如果想在 1.13.2, 1.14.4, 1.15.2, 1.16.5 使用 CandyCommandAPI, 你必须安装源码位于 <b>`candy-command-oldnms-adapter`</b> 模块下的 CandyCommandOldNmsAdapter 插件</h3>
+<h3 align="center">在 1.13 之间 1.16.5 的版本仅支持最后的大版本, 并且如果想在 1.13.2, 1.14.4, 1.15.2, 1.16.5 使用
+CandyCommandAPI, 你必须安装源码位于 <b>`candy-command-oldnms-adapter`</b> 模块下的 CandyCommandOldNmsAdapter 插件</h3>
 <h3 align="center">如果你需要 1.17+ 其他版本的支持, 请创建 Issue.</h2>
 
-<h3 align="center">我忘掉了太低的版本不支持 java 17, 所以 1.13 - 1.16 的支持需要一个更好的解决方案</h3>
+<h3 align="center">我忘掉了太低的版本不支持 Java 17, 所以 1.13 - 1.16 的支持需要一个更好的解决方案</h3>
 
 ---
 
@@ -19,12 +20,14 @@
 
 <h4>对于维护者</h4>
 如果你想制作本项目的分支进行维护, 在你导入本项目后, 你会发现在 `candy-command-impl` 模块下的 CandyCommandAPI 中导入的一些类缺失了.
-别担心, 那不是什么大问题, 因为我们导入了不同版本的实现, 比如 `candy-command-impl-1-20-4`, 并且我们需要的是重新混淆后的 Jar, 所以原始的源码不会被导入.
+别担心, 那不是什么大问题, 因为我们导入了不同版本的实现, 比如 `candy-command-impl-1-20-4`, 并且我们需要的是重新混淆后的
+Jar, 所以原始的源码不会被导入.
 在修改 `candy-command-impl` 模块前, 你需要先运行 `gradle shadowJar` 任务.
 <h4>对于开发者</h4>
 
 **准备** \
 在你创建一个命令之前, 你需要先获取一个 CommandService 对象.
+
 ```java
 CommandService service = CommandService.getService(); // 确保你的服务器安装了 CandyCommandAPI 插件来获取 CommandService
 CommandManager commandManager = service.getCommandManager(); // 与命令相关
@@ -33,48 +36,69 @@ ArgumentManager argumentManager = service.getArgumentManager(); // 与参数相�
 // 如果你想用注解方式注册命令, 这是你需要获取的
 AnnotationCommandManager annotationCommandManager = service.getAnnotationCommandManager();
 ```
+
 为了开发使用, 我们有三种方法注册命令 (所有 JVM 语言可以使用的有 2 种, 仅 Kotlin 支持的有 1 种)
 
 **1. Brigadier-Like** \
 你可以用下方的代码创建一个命令.
+
 ```java
 CommandBuilder baseCommand = commandManager.createCommand("test");
 ```
+
 为该命令添加执行器.
+
 ```java
 // 使用 "/test" 来执行此命令
-baseCommand.executes((context, argument) -> { // 第一个参数是一个 CommandContext 对象, 第二个参数是一个 CommandArgumentHelper 对象.
-            CommandSender sender = context.getSender(); // 你可以使用此方法获取命令的执行者
+baseCommand.executes((context, argument) ->{ // 第一个参数是一个 CommandContext 对象, 第二个参数是一个 CommandArgumentHelper 对象.
+CommandSender sender = context.getSender(); // 你可以使用此方法获取命令的执行者
             return 1; // 这是必须执行的操作, 任何小于等于 0 的值意味着该命令执行失败了, 否则为执行成功 
-        });
+                    });
 ```
+
 如果你像添加一个子命令来执行类似 "/test subcmd" 的命令, 请这样写.
+
 ```java
 CommandBuilder subCommand = commandManager.createCommand("subcmd");
-subCommand.executes((context, argument) -> {
-            // 进行操作
-            return 1;
+subCommand.
+
+executes((context, argument) ->{
+        // 进行操作
+        return 1;
         });
-baseCommand.then(subCommand);
+        baseCommand.
+
+then(subCommand);
 ```
+
 如何创建一个带参数的命令?
+
 ```java
 CommandBuilder argumentCommand = commandManager.createCommand("argumentName", argumentManager.integer(1, 10)); // 这意味着可以接受一个在 [1, 10] 区间内的数字
-argumentCommand.executes((context, argument) -> {
-            int argumentValue = argument.getInteger("argumentName");
-            // 进行操作
+argumentCommand.
+
+executes((context, argument) ->{
+int argumentValue = argument.getInteger("argumentName");
+// 进行操作
             return 1;
-        });
-baseCommand.then(argumentCommand);
+                    });
+                    baseCommand.
+
+then(argumentCommand);
 ```
+
 现在, 让我们注册这个命令.
+
 ```java
 commandManager.register(baseCommand); // 如果你不特定一个前缀, 会使用默认前缀 "candycmd"
 // 或者
-commandManager.register("cmdprefix", baseCommand);
+commandManager.
+
+register("cmdprefix",baseCommand);
 ```
 
 **2. 注解**
+
 ```java
 // TestCommand.java
 
@@ -143,11 +167,15 @@ public class SubTestCommand {
 }
 
 ```
+
 这有一点与 Brigadier-like 命令不同的地方, 你需要使用 AnnotationCommandManager 来注册命令.
+
 ```java
 annotationCommandManager.register(new TestCommand());
 ```
+
 **3. Kotlin DSL**
+
 ```kotlin
 val command = Command("example") {
     Literal("subcommand") {
@@ -192,12 +220,15 @@ val command = Command("example") {
 
 commandManager.register("cmdprefix", command)
 ```
+
 ---
 
 <h3 align="center">技术细节</h3>
-通常来说, 使用 brigadier 注册命令只会有一个 "minecraft" 命令前缀, 因为如果你直接将命令注册进入 CommandDispatcher, Bukkit会自动添加 "minecraft" 前缀因为 brigadier 命令是在 bukkit 命令之前注册的.
+通常来说, 使用 brigadier 注册命令只会有一个 "minecraft" 命令前缀, 因为如果你直接将命令注册进入 CommandDispatcher,
+Bukkit会自动添加 "minecraft" 前缀因为 brigadier 命令是在 bukkit 命令之前注册的.
 
 为了解决这个问题, 我先创建了一个 VanillaCommandWrapper 对象并通过 Bukkit 的 CommandMap 进行注册.
+
 ```java
 // 代码来自 'candy-command-impl-1-20-4' 模块中的 CommandManagerV1_20_4
 @Override
@@ -229,11 +260,11 @@ public void onLoad(ServerLoadEvent event) { // 你也可以用调度器来执行
 
     // 获取存储的已知命令 (执行 getKnownCommands 不会返回复制后的内容)
     Map<String, org.bukkit.command.Command> knownCommands = commandMap.getKnownCommands();
-    
+
     for (String prefix : REGISTERED.keySet()) {
         for (Command command : REGISTERED.get(prefix)) {
             // 以一个名为 "test", 前缀为 "prefix" 的命令为例
-            
+
             // 获取构造好的 brigadier 命令节点
             CommandNode<CommandSourceStack> commandNode = ((CommandV1_20_4) command).toBrigadier();
 
