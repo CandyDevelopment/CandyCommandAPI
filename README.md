@@ -11,7 +11,6 @@ English | <a href="./README_CN.md">简体中文</a>
 <h3 align="center">ONLY LATEST VERSION ARE SUPPORTED BETWEEN 1.13 AND 1.16.5, AND TO USE CANDY COMMAND API IN 1.13.2,
 1.14.4, 1.15.2, 1.16.5 YOU MUST INSTALL THE PLUGIN CandyCommandOldNmsAdapter WHICH IS IN
 MODULE <b>`candy-command-oldnms-adapter`</b></h3>
-<h3 align="center">IF YOU NEED OTHER VERSION SUPPORT AFTER 1.17+ PLEASE CREATE ISSUE.</h2>
 
 <h3 align="center">Oops, I forget that version too low not support Java 17, so support for 1.13 - 1.16 need a better
 solution</h3>

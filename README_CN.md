@@ -10,7 +10,6 @@
 <h2 align="center"><b>注意: 只支持 Paper 及基于 Paper 的服务端 (1.13 - 1.16.5 支持 Spigot)</b></h2>
 <h3 align="center">在 1.13 之间 1.16.5 的版本仅支持最后的大版本, 并且如果想在 1.13.2, 1.14.4, 1.15.2, 1.16.5 使用
 CandyCommandAPI, 你必须安装源码位于 <b>`candy-command-oldnms-adapter`</b> 模块下的 CandyCommandOldNmsAdapter 插件</h3>
-<h3 align="center">如果你需要 1.17+ 其他版本的支持, 请创建 Issue.</h2>
 
 <h3 align="center">我忘掉了太低的版本不支持 Java 17, 所以 1.13 - 1.16 的支持需要一个更好的解决方案</h3>
 
