@@ -13,7 +13,9 @@ fun Command(name: String, content: CommandBuilder.() -> Unit): CommandBuilder {
 }
 
 fun CommandBuilder.Literal(name: String, content: CommandBuilder.() -> Unit): CommandBuilder {
-    return this.then(CommandService.getService().commandManager.createCommand(name).apply(content))
+    val builder = CommandService.getService().commandManager.createCommand(name).apply(content)
+    this.then(builder)
+    return builder
 }
 
 fun <T> CommandBuilder.Argument(
@@ -25,6 +27,7 @@ fun <T> CommandBuilder.Argument(
     builder.content {
         return@content resolve(type.type, name, this.argument)
     }
+    this.then(builder)
     return builder
 }
 
